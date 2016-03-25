@@ -1,5 +1,4 @@
 require './lib/config'
-require './test/test_helper'
 
 # Loader loads
 class Loader
