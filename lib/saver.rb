@@ -2,11 +2,12 @@ require './lib/config'
 
 require 'yaml'
 
+# Saver saves
 class Saver
-  def self.save_all(all_series, file=Config::SAVE_FILE)
+  def self.save_all(all_series, file = Config::SAVE_FILE)
     if file.respond_to?(:write)
       file << YAML.dump(all_series)
-    else 
+    else
       File.open(file, 'w') do |f|
         f.write(YAML.dump(all_series))
       end
