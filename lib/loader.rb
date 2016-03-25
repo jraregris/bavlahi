@@ -1,4 +1,5 @@
 require './lib/config'
+require './test/test_helper'
 
 class Loader
   def self.load_all(file=Config::SAVE_FILE)
