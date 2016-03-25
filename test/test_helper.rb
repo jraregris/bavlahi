@@ -1,5 +1,5 @@
 require 'codeclimate-test-reporter'
 
-CodeClimate::TestReport.start
+CodeClimate::TestReporter.start
 
 require 'minitest/autorun'
