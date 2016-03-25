@@ -1,0 +1,17 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    dotenv (2.1.0)
+    minitest (5.8.4)
+    rake (11.1.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  dotenv (~> 2.1)
+  minitest (~> 5.8, >= 5.8.4)
+  rake (~> 11.1)
+
+BUNDLED WITH
+   1.11.2
