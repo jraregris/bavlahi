@@ -1,8 +1,8 @@
 require 'minitest/autorun'
 
-require 'test/test_helper'
+require './test/test_helper'
 
-require 'lib/saver'
+require './lib/saver'
 
 describe Saver do
   it "should write the given object to the save file" do
