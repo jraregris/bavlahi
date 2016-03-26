@@ -1,9 +1,9 @@
 # This is the default configuration file. Enabling and disabling is configured
 # in separate files. This file adds all other parameters apart from Enabled.
 
-inherit_from:
-  - enabled.yml
-  - disabled.yml
+#inherit_from:
+#  - enabled.yml
+#  - disabled.yml
 
 # Common configuration.
 AllCops:
