@@ -8,21 +8,18 @@ engines:
       languages:
       - ruby
       - javascript
-      - python
-      - php
   fixme:
     enabled: true
   rubocop:
     enabled: true
+  markdownlint:
+    enabled: true
+  reek:
+    enabled: true
 ratings:
   paths:
   - Gemfile.lock
-  - "**.inc"
-  - "**.js"
-  - "**.jsx"
-  - "**.module"
-  - "**.php"
-  - "**.py"
   - "**.rb"
+  - "**.md"
 exclude_paths:
 - test/
