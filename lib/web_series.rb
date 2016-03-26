@@ -20,7 +20,7 @@ class WebSeries
   end
 
   def read(page)
-    STDOUT << "Checking web_series #{@title}\n"
+    STDOUT << "Checking web_series #@title\n"
     open(page, read_timeout: 10).read
   end
 
