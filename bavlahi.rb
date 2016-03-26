@@ -17,7 +17,7 @@ require './lib/saver'
 
 get '/' do
   series = Loader.load_all
-  haml :index, { locals: { series: series }}
+  haml :index, locals: { series: series }
 end
 
 get '/style.css' do
@@ -27,14 +27,27 @@ end
 get 'edit' do
   all_series = Loader.load_all
 
-  "<a href='#{url("/")}'>Bavlahi</a><form><textarea name='series' rows='60' cols='50'>#{YAML.dump(all_series)}</textarea><button formaction='/edit/' formmethod='post'>Update</button></form>"
+  <<-HTML
+  <a href='#{url('/')}'>Bavlahi</a>
+  <form>
+    <textarea name='series'
+              rows='60'
+              cols='50'>
+      #{YAML.dump(all_series)}
+    </textarea>
+    <button formaction='/edit/'
+            formmethod='post'>
+      Update
+    </button>
+  </form>
+  HTML
 end
 
 get '/edit/:series' do
   all_series = Loader.load_all
   series = all_series.detect { |s| s.title.downcase == params[:series] }
 
-  haml :edit_series, { locals: { series: series, data: YAML.dump(series) }}
+  haml :edit_series, locals: { series: series, data: YAML.dump(series) }
 end
 
 post '/edit/:series' do
@@ -51,7 +64,7 @@ end
 get '/:series' do
   all_series = Loader.load_all
   series = all_series.detect { |s| s.title.downcase == params[:series] }
-  haml :page, { locals: { series: series }}
+  haml :page, locals: { series: series }
 end
 
 post '/:series/next' do
@@ -59,7 +72,6 @@ post '/:series/next' do
   series = all_series.detect { |s| s.title.downcase == params[:series] }
   puts "?? now #{series.title} is #{series.current_page}"
   series.advance!
-
 
   Saver.save_all(all_series)
 

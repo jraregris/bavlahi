@@ -2,6 +2,7 @@ require 'open-uri'
 require 'yaml'
 require 'pry'
 
+# Seq for html-pages with 'next' links
 class WebSeries
   attr_reader :next_pattern, :title
   attr_accessor :current_page, :has_next
@@ -19,34 +20,38 @@ class WebSeries
   end
 
   def read(page)
-    open(page, :read_timeout => 10).read
+    STDOUT << "Checking web_series #{@title}\n"
+    open(page, read_timeout: 10).read
   end
 
   def next_page
-    STDOUT << "Checking web_series #{@title}\n"
     html = read(current_page)
     match = next_pattern.match(html)
-    return current_page if match.nil?
-    path = match[1]
-    if path =~ URI::regexp
-      path
-    elsif path.start_with? "?"
-      uri = URI(current_page)
-      uri.query = path.strip
-      uri.to_s
-    else
-      uri = URI(current_page)
-      uri.path = "/#{path.split('?')[0]}"
-      uri.query = path.split('?')[1]
-      uri.to_s
-    end
+
+    return current_page unless match
+
+    full_uri(match).to_s
   end
 
-  def has_next?
-    if !@has_next
-      @has_next = current_page != next_page
+  def full_uri(match)
+    path = match[1]
+
+    return path if path =~ URI.regexp
+
+    uri = URI(current_page)
+
+    if path.start_with? '?'
+      uri.query = path.strip
+    else
+      uri.path = "/#{path.split('?')[0]}"
+      uri.query = path.split('?')[1]
     end
-    @has_next
+
+    uri
+  end
+
+  def next?
+    @has_next ||= current_page != next_page
   end
 
   def advance!

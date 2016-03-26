@@ -1,11 +1,13 @@
 require 'yt'
 
+# Seq for Youtube Playlists
 class YoutubePlaylist
   @has_next = nil
 
-  def the_one_after_this_one video_id, page=1, previous_video=nil
-    channel = Yt::Playlist.new url: "https://www.youtube.com/playlist?list=#{@list}"
-    list = channel.playlist_items
+  def videos
+    options = { url: "https://www.youtube.com/playlist?list=#{@list}" }
+    playlist = Yt::Playlist.new options
+    list = playlist.playlist_items
 
     items = []
 
@@ -13,32 +15,28 @@ class YoutubePlaylist
       items << v
     end
 
-    ids = []
-
-    items.each do |i|
-      ids << i.snippet.data['resourceId']['videoId']
+    items.map do |i|
+      i.snippet.data['resourceId']['videoId']
     end
+  end
 
-  
-    upto = ids.drop_while { |i| i  != video_id }
+  def the_one_after_this_one(video_id, previous_video = nil)
+    upto = videos.drop_while { |i| i != video_id }
 
     upto.shift
-    if(upto.size > 0)
+    if !upto.empty?
       @has_next = true
       return upto.first
     else
       @has_next = false
       return previous_video
     end
-
   end
 
   attr_accessor :current_video, :title, :list
 
-  def has_next?
-    if !@has_next
-      next_id
-    end
+  def next?
+    next_id unless @has_next
     @has_next
   end
 
@@ -52,7 +50,7 @@ class YoutubePlaylist
     make_embed_url(current_video)
   end
 
-  def make_embed_url video_id
+  def make_embed_url(video_id)
     "http://youtube.com/embed/#{video_id}"
   end
 
@@ -62,8 +60,8 @@ class YoutubePlaylist
 
   def next_id
     STDOUT << "Checking YT playlist -> #{title}"
-    lol = the_one_after_this_one(@current_video, 1, @current_video)
-    STDOUT << "#{@has_next ? " new!" : "..."}\n"
+    lol = the_one_after_this_one(@current_video, @current_video)
+    STDOUT << "#{@has_next ? ' new!' : '...'}\n"
     lol
   end
 end
