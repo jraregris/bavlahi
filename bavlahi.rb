@@ -24,6 +24,17 @@ get '/style.css' do
   sass :style
 end
 
+def honko width, height, &blk
+  @width, @height = width, height
+  @cells = {}
+  (0..width-1).each do |x|
+    (0..height-1).each do |y|
+      @cells[Coordinate.new(x,y)] = Cell.new '#'
+    end
+  end
+end
+
+
 get 'edit' do
   all_series = Loader.load_all
 
@@ -33,7 +44,7 @@ get 'edit' do
     <textarea name='series'
               rows='60'
               cols='50'>
-      #{YAML.dump(all_series)}
+  #{YAML.dump(all_series)}
     </textarea>
     <button formaction='/edit/'
             formmethod='post'>
