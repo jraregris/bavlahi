@@ -6,5 +6,7 @@
 [![Issue Count](https://codeclimate.com/github/jraregris/bavlahi/badges/issue_count.svg)](https://codeclimate.com/github/jraregris/bavlahi)
 
 ## FAQ
+
 ### Is [bavlahi] a Youtube lib?
+
 No, but it uses a [Youtube lib](https://github.com/Fullscreen/yt).
