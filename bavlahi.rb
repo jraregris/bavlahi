@@ -45,14 +45,14 @@ end
 
 get '/edit/:series' do
   all_series = Loader.load_all
-  series = all_series.detect { |s| s.title.downcase == params[:series] }
+  series = all_series.detect { |s| s.title.casecmp(params[:series]).zero? }
 
   haml :edit_series, locals: { series: series, data: YAML.dump(series) }
 end
 
 post '/edit/:series' do
   all_series = Loader.load_all
-  series = all_series.detect { |s| s.title.downcase == params[:series] }
+  series = all_series.detect { |s| s.title.casecmp(params[:series]).zero? }
   new_series = YAML.load(request['series'])
   series.update(new_series)
 
@@ -63,13 +63,13 @@ end
 
 get '/:series' do
   all_series = Loader.load_all
-  series = all_series.detect { |s| s.title.downcase == params[:series] }
+  series = all_series.detect { |s| s.title.casecmp(params[:series]).zero? }
   haml :page, locals: { series: series }
 end
 
 post '/:series/next' do
   all_series = Loader.load_all
-  series = all_series.detect { |s| s.title.downcase == params[:series] }
+  series = all_series.detect { |s| s.title.casecmp(params[:series]).zero? }
   puts "?? now #{series.title} is #{series.current_page}"
   series.advance!
 
