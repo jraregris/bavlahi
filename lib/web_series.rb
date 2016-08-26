@@ -54,7 +54,7 @@ class WebSeries
     @has_next ||= current_page != next_page
   end
 
-  def advance!
+  def advance
     @current_page = next_page
   end
 end

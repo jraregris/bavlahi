@@ -71,7 +71,7 @@ post '/:series/next' do
   all_series = Loader.load_all
   series = all_series.detect { |s| s.title.casecmp(params[:series]).zero? }
   puts "?? now #{series.title} is #{series.current_page}"
-  series.advance!
+  series.advance
 
   Saver.save_all(all_series)
 

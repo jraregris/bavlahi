@@ -54,7 +54,7 @@ class YoutubePlaylist
     "http://youtube.com/embed/#{video_id}"
   end
 
-  def advance!
+  def advance
     @current_video = next_id
   end
 
