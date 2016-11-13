@@ -1,4 +1,6 @@
-![](http://www.2016auditions.com/wp-content/uploads/2016/04/NEXT_Logo.jpg)
+# Bavlahi
+
+Web based tool for consuming sequenced content
 
 ## FAQ
 
