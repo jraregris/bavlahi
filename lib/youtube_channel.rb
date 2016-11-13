@@ -57,4 +57,10 @@ class YoutubeChannel
     STDOUT << "#{@has_next ? ' new!' : '...'}\n"
     lol
   end
+
+  def slug
+    @title
+      .gsub(' ','-')
+      .downcase
+  end
 end

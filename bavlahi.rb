@@ -6,8 +6,7 @@ Dotenv.load
 
 require 'sinatra'
 require 'open-uri'
-require 'tilt/haml'
-require 'tilt/sass'
+require 'slim'
 
 require './lib/web_series'
 require './lib/youtube_channel'
@@ -16,8 +15,8 @@ require './lib/loader'
 require './lib/saver'
 
 get '/' do
-  series = Loader.load_all
-  haml :index, locals: { series: series }
+  @series = Loader.load_all
+  slim :index
 end
 
 get '/style.css' do
@@ -63,8 +62,8 @@ end
 
 get '/:series' do
   all_series = Loader.load_all
-  series = all_series.detect { |s| s.title.casecmp(params[:series]).zero? }
-  haml :page, locals: { series: series }
+  @series = all_series.detect { |s| s.title.casecmp(params[:series]).zero? }
+  slim :page
 end
 
 post '/:series/next' do

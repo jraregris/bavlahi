@@ -1,6 +1,5 @@
 require 'open-uri'
 require 'yaml'
-require 'pry'
 
 # Seq for html-pages with 'next' links
 class WebSeries
@@ -56,5 +55,11 @@ class WebSeries
 
   def advance
     @current_page = next_page
+  end
+
+  def slug
+    @title
+      .gsub(' ','-')
+      .downcase
   end
 end

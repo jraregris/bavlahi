@@ -1,0 +1,12 @@
+doctype html
+html
+  head
+    title B
+  body
+    h1 Bavlahi
+    
+    - unless @series.empty?
+      ul
+        - @series.each do |s|
+          li
+            a href=s.slug = s.title
