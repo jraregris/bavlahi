@@ -5,7 +5,7 @@ html
   body
     h1 Bavlahi
     
-    - unless @series.empty?
+    - unless @series.nil? || @series.empty?
       ul
         - @series.each do |s|
           li
