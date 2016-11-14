@@ -67,7 +67,7 @@ class YoutubePlaylist
 
   def slug
     @title
-      .gsub(' ', '-')
+      .tr(' ', '-')
       .downcase
   end
 end

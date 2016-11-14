@@ -59,7 +59,7 @@ class WebSeries
 
   def slug
     @title
-      .gsub(' ','-')
+      .tr(' ', '-')
       .downcase
   end
 end
